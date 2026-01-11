@@ -1,33 +1,61 @@
 import Button from "@/app/shared/components/Button"
 import Input from "@/app/shared/components/Input"
 import Link from "next/link"
+import FutureTrail from "../../shared/components/FutureTrail"
 
 export default function Page() {
-    return (
-        <div className="flex justify-end mt-20">
-            <div className="flex flex-col w-105 mt-20 mr-44 gap-4">
-                <div className="flex flex-col items-center">
-                    <span className="text-lg font-semibold">Tracking Your's Products</span>
-                </div>
+  return (
+    <div className="flex min-h-screen">
 
-                <div className="flex flex-col gap-2">
-                    <Input className="w-full" placeholder="Username" />
-                    <Input className="w-full" type="password" placeholder="Password" />
-                </div>
+      <div className="w-3/4 h-screen bg-gray-200 overflow-hidden">
+         <FutureTrail />
+      </div>
+      
+      <div className="w-px bg-gray-300"></div>
 
-                <Button className="w-full" type="submit">
-                    Sign In
-                </Button>
+      <div className="w-1/4 flex justify-center items-center">
+        <div className="flex flex-col w-full max-w-sm gap-4">
 
-                <div>
-                    <span>
-                        Don't have an account?{" "}
-                        <Link href="/register" className="text-blue-500 hover:underline">
-                            Sign Up
-                        </Link>
-                    </span>
-                </div>
-            </div>
+          <span className="text-lg font-semibold text-center text-black">
+            Tracking Your's Products
+          </span>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-black">Email</label>
+            <Input type="email" placeholder="Email" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-black">Password</label>
+            <Input type="password" placeholder="Password" />
+          </div>
+
+          <Button className="w-full" type="submit">
+            Login
+          </Button>
+
+          <div className="w-full flex items-center gap-3">
+            <div className="h-px flex-1 bg-gray-300" />
+            <span className="text-sm text-gray-500">Log in with</span>
+            <div className="h-px flex-1 bg-gray-300" />
+          </div>
+
+          <div className="flex justify-center text-black">
+            Google
+          </div>
+
+          <div className="flex justify-center text-black">
+            <span>
+              Don't have an account?{" "}
+              <Link href="/register" className="text-blue-500 hover:underline">
+                Sign Up
+              </Link>
+            </span>
+          </div>
+
         </div>
-    )
+      </div>
+
+    </div>
+  )
 }

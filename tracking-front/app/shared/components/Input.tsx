@@ -12,8 +12,9 @@ export default function Input({
 }: InputProps) {
   return (
     <input
+      type={type}
       className={clsx(
-        "w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200",
+        "w-full rounded-md border border-gray-500 px-3 py-2 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-200",
         className
       )}
       {...props}
