@@ -7,19 +7,26 @@ import FutureTrail from "../../shared/components/FutureTrail";
 import { CreateUserSchema, FormData } from "./schema/User";
 import { useRef, useState } from "react";
 import Toast from "@/app/shared/error/components/Toast";
+import { api } from "@/app/lib/api";
+import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import InlineSwal from "@/app/shared/components/InlineSwal";
 
 export default function Page() {
   const router = useRouter();
 
-  const [form, setForm] = useState<FormData>({ name: "", email: "", password: "" });
-  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [form, setForm] = useState<FormData>({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<keyof FormData, string>>
+  >({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const [swalOpen, setSwalOpen] = useState(false);
-  const api = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(/\/$/, "");
   const swalTargetRef = useRef<HTMLDivElement | null>(null);
 
   function handleChange<K extends keyof FormData>(key: K, value: FormData[K]) {
@@ -28,9 +35,10 @@ export default function Page() {
     setGlobalError(null);
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setGlobalError(null);
+    setFieldErrors({ name: undefined, email: undefined, password: undefined });
 
     const parsed = CreateUserSchema.safeParse(form);
     if (!parsed.success) {
@@ -45,30 +53,49 @@ export default function Page() {
 
     setLoading(true);
     try {
-      const response = await fetch(`${api}/api/users`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
-      });
-
-      if (!response.ok) {
-        if (response.status === 409) {
-          setGlobalError("Este e-mail já está em uso.");
-          setFieldErrors((prev) => ({ ...prev, email: "E-mail já cadastrado." }));
-        } else {
-          let message = `Falha ao criar usuário (HTTP ${response.status}).`;
-          try {
-            const body = await response.json();
-            message = body?.message || body?.error || message;
-          } catch {}
-          setGlobalError(message);
-        }
-        return;
-      }
-
+      await api.post("/api/users", parsed.data);
       setSwalOpen(true);
-    } catch {
-      setGlobalError("Erro de rede ou servidor indisponível.");
+
+    } catch (err: unknown) {
+      if (isAxiosError(err) && err.response) {
+        const { status, data } = err.response;
+
+        if (status === 409) {
+          setGlobalError("Este e-mail já está em uso.");
+          setFieldErrors(prev => ({ ...prev, email: "E-mail já cadastrado." }));
+          return;
+        }
+
+        if (status === 400 || status === 422) {
+          const fieldErrors = (data as any)?.errors as
+            | { name?: string; email?: string; password?: string }
+            | undefined;
+
+          if (fieldErrors) {
+            setFieldErrors(prev => ({
+              ...prev,
+              name: fieldErrors.name ?? prev.name,
+              email: fieldErrors.email ?? prev.email,
+              password: fieldErrors.password ?? prev.password,
+            }));
+          }
+
+          const msg =
+            (data as any)?.message ||
+            (data as any)?.error ||
+            "Falha de validação.";
+          setGlobalError(msg);
+          return;
+        }
+
+        const msg =
+          (data as any)?.message ||
+          (data as any)?.error ||
+          `Falha ao criar usuário (HTTP ${status}).`;
+        setGlobalError(msg);
+      } else {
+        setGlobalError("Erro de rede ou servidor indisponível.");
+      }
     } finally {
       setLoading(false);
     }
@@ -77,7 +104,11 @@ export default function Page() {
   return (
     <div className="flex min-h-screen">
       {globalError && (
-        <Toast message={globalError} variant="error" onClose={() => setGlobalError(null)} />
+        <Toast
+          message={globalError}
+          variant="error"
+          onClose={() => setGlobalError(null)}
+        />
       )}
 
       <div className="w-3/4 h-screen bg-gray-200 overflow-hidden">
@@ -88,7 +119,10 @@ export default function Page() {
 
       <div className="w-1/4 flex justify-center items-center">
         <div className="relative flex flex-col w-full max-w-sm gap-4">
-          <div ref={swalTargetRef} className="absolute inset-0 pointer-events-none" />
+          <div
+            ref={swalTargetRef}
+            className="absolute inset-0 pointer-events-none"
+          />
 
           <InlineSwal
             open={swalOpen}
@@ -105,7 +139,11 @@ export default function Page() {
             }}
           />
 
-          <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-sm gap-4" noValidate>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full max-w-sm gap-4"
+            noValidate
+          >
             <span className="text-lg font-semibold text-center text-black">
               Create Your Account
             </span>
@@ -117,10 +155,16 @@ export default function Page() {
                 type="text"
                 placeholder="Username"
                 value={form.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("name", e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange("name", e.target.value)
+                }
                 disabled={loading}
               />
-              {fieldErrors.name && <p className="text-xs font-medium text-red-600">{fieldErrors.name}</p>}
+              {fieldErrors.name && (
+                <p className="text-xs font-medium text-red-600">
+                  {fieldErrors.name}
+                </p>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -130,10 +174,16 @@ export default function Page() {
                 type="email"
                 placeholder="Email"
                 value={form.email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("email", e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange("email", e.target.value)
+                }
                 disabled={loading}
               />
-              {fieldErrors.email && <p className="text-xs font-medium text-red-600">{fieldErrors.email}</p>}
+              {fieldErrors.email && (
+                <p className="text-xs font-medium text-red-600">
+                  {fieldErrors.email}
+                </p>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -143,10 +193,16 @@ export default function Page() {
                 type="password"
                 placeholder="Password"
                 value={form.password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("password", e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange("password", e.target.value)
+                }
                 disabled={loading}
               />
-              {fieldErrors.password && <p className="text-xs font-medium text-red-600">{fieldErrors.password}</p>}
+              {fieldErrors.password && (
+                <p className="text-xs font-medium text-red-600">
+                  {fieldErrors.password}
+                </p>
+              )}
             </div>
 
             <Button type="submit" disabled={loading}>
@@ -163,7 +219,8 @@ export default function Page() {
 
             <div>
               <span className="text-sm text-gray-700">
-                By continuing to use our service means that you have read and agree to
+                By continuing to use our service means that you have read and
+                agree to
                 <span className="text-blue-800 underline"> Terms </span>
                 and <span className="text-blue-800 underline"> Privacy </span>
               </span>

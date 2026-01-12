@@ -1,14 +1,16 @@
-import axios from 'axios';
-import { parseCookies } from 'nookies'
+import axios from "axios";
+import { parseCookies } from "nookies";
 
-const { "nextauth.token": token } = parseCookies();
+export const baseURL =
+  process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export let baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+export const api = axios.create({ baseURL });
 
-export const api = axios.create({
-    baseURL
-})
-
-if (token) {
-    api.defaults.headers["authorozation"] = `Bearer ${token}`;
-}
+api.interceptors.request.use((config) => {
+  const { "nextauth.token": token } = parseCookies();
+  if (token) {
+    config.headers = config.headers ?? {};
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
