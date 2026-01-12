@@ -30,7 +30,7 @@ export default function Page() {
             <Input type="password" placeholder="Password" />
           </div>
 
-          <Button className="w-full" type="submit">
+          <Button className="w-full" type="button">
             <Link href="/home">
               Login
             </Link>
