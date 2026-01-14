@@ -1,6 +1,6 @@
-import DarkVeil from "@/components/DarkVeil";
+// import DarkVeil from "@/components/DarkVeil";
 import CardNav from "@/components/CardNav";
-import logo from '../../../public/vercel.svg';
+import logo from '../../../public/Trackify_logo.png';
 
 export default function Page() {
   const rawItems = [
@@ -63,7 +63,7 @@ export default function Page() {
 
   return (
     <div className="fixed inset-0">
-      <DarkVeil resolutionScale={1} />
+      {/* <DarkVeil resolutionScale={1} /> */}
       <CardNav
         logo={logo}
         logoAlt="Company Logo"

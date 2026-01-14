@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import type { StaticImageData } from 'next/image';
 import { gsap } from 'gsap';
 // use your own icon import if react-icons is not available
 import { GoArrowUpRight } from 'react-icons/go';
@@ -19,7 +20,7 @@ export type CardNavItem = {
 };
 
 export interface CardNavProps {
-  logo: string;
+  logo: string | StaticImageData;
   logoAlt?: string;
   items: CardNavItem[];
   className?: string;
@@ -188,7 +189,7 @@ const CardNav: React.FC<CardNavProps> = ({
           </div>
 
           <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
-            <img src={logo} alt={logoAlt} className="logo h-[28px]" />
+            <img src={typeof logo === 'string' ? logo : logo.src} alt={logoAlt} className="logo h-[74px]" />
           </div>
 
           <button
