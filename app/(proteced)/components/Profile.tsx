@@ -16,8 +16,8 @@ export type ProfileProps = {
 };
 
 const defaultItems: ProfileMenuItem[] = [
-  { label: 'Configuracoes', href: '/configuracoes' },
-  { label: 'Sair' },
+  { label: 'Settings', href: '/configuracoes' },
+  { label: 'Leave' },
 ];
 
 export function Profile({ name = 'Usuario', avatarUrl, className = '', items = defaultItems }: ProfileProps) {
