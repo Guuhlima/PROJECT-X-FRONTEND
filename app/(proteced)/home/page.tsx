@@ -1,8 +1,10 @@
 // import DarkVeil from "@/components/DarkVeil";
 import CardNav from "@/components/CardNav";
+import { Profile } from "../components/Profile";
 import logo from '../../../public/Trackify_logo.png';
 
 export default function Page() {
+
   const rawItems = [
     {
       label: "About",
@@ -64,6 +66,10 @@ export default function Page() {
   return (
     <div className="fixed inset-0">
       {/* <DarkVeil resolutionScale={1} /> */}
+      <Profile 
+        name="Gustavo Lima"
+        className="mt-3.5 w-12 h-12"
+      />
       <CardNav
         logo={logo}
         logoAlt="Company Logo"
