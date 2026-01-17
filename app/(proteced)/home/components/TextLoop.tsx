@@ -33,7 +33,7 @@ export function CardTrack() {
     const active = TracksTexts[activeIndex];
 
     return (
-        <div className="h-72 mt-52 justify-center flex items-center">
+        <div className="h-72 mt-20 justify-center flex items-center">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={active.title}
