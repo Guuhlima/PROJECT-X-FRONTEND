@@ -9,11 +9,11 @@ export const rawItems = [
       ],
     },
     {
-      label: "Projects",
+      label: "Profile",
       bgColor: "#170D27",
       textColor: "#fff",
       links: [
-        { label: "Featured", ariaLabel: "Featured Projects" },
+        { label: "Tracks", ariaLabel: "Featured Projects" },
         { label: "Case Studies", ariaLabel: "Project Case Studies" },
       ],
     },

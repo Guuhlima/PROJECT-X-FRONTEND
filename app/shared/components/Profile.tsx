@@ -58,7 +58,7 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-black/10 text-sm font-semibold text-white shadow-md transition hover:scale-[1.02]"
+        className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-black/30 text-sm font-semibold text-white shadow-md transition hover:scale-[1.02]"
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element

@@ -11,8 +11,8 @@ export default function Toast({
     variant === "error"
       ? "bg-red-600 text-white border-red-700"
       : variant === "success"
-      ? "bg-green-600 text-white border-green-700"
-      : "bg-gray-900 text-white border-gray-800";
+        ? "bg-green-600 text-white border-green-700"
+        : "bg-gray-900 text-white border-gray-800";
 
   return (
     <div className="fixed bottom-4 left-4 z-50 w-[320px] max-w-[calc(100vw-2rem)]">

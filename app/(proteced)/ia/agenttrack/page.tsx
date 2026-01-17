@@ -1,5 +1,5 @@
-import CardNav from "@/components/CardNav";
-import { Profile } from "../../components/Profile";
+import CardNav from "@/app/shared/components/CardNav";
+import { Profile } from "../../../shared/components/Profile";
 import logo from "../../../../public/Trackify_logo.png";
 import { items } from "@/app/shared/data/Items";
 import ChatHeader from "./components/ChatHeader";
@@ -32,7 +32,7 @@ const messages: Message[] = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-white via-slate-50 to-zinc-100 text-slate-900">
+    <div className="min-h-screen bg-linear-to-br text-slate-900">
       <div className="relative min-h-screen">
         <Profile name="Gustavo Lima" className="mt-3.5 h-12 w-12" />
         <CardNav

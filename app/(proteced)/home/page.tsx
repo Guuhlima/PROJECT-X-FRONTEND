@@ -1,13 +1,14 @@
-import CardNav from "@/components/CardNav";
-import { Profile } from "../components/Profile";
+import CardNav from "@/app/shared/components/CardNav";
+import { Profile } from "../../shared/components/Profile";
 import logo from '../../../public/Trackify_logo.png';
-import { items } from "@/app/shared/data/Items"; 
+import { items } from "@/app/shared/data/Items";
+import { CardTrack } from "./components/CardTrack";
 
 export default function Page() {
 
   return (
     <div className="fixed inset-0">
-      <Profile 
+      <Profile
         name="Gustavo Lima"
         className="mt-3.5 w-12 h-12"
       />
@@ -21,6 +22,7 @@ export default function Page() {
         buttonTextColor="#fff"
         ease="power3.out"
       />
+      <CardTrack />
     </div>
   );
 }
