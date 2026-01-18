@@ -26,24 +26,6 @@ const techLogos = [
   },
 ];
 
-const imageLogos = [
-  {
-    src: "/logos/company1.png",
-    alt: "Company 1",
-    href: "https://company1.com",
-  },
-  {
-    src: "/logos/company2.png",
-    alt: "Company 2",
-    href: "https://company2.com",
-  },
-  {
-    src: "/logos/company3.png",
-    alt: "Company 3",
-    href: "https://company3.com",
-  },
-];
-
 export default function Page() {
   return (
     <div className="fixed inset-0">
@@ -66,6 +48,19 @@ export default function Page() {
           logos={techLogos}
           speed={60}
           direction="left"
+          logoHeight={48}
+          gap={40}
+          hoverSpeed={30}
+          scaleOnHover
+          fadeOut
+          fadeOutColor="#ffffff"
+          ariaLabel="Technology partners"
+        />
+        <LogoLoop
+          className="mt-5"
+          logos={techLogos}
+          speed={60}
+          direction="right"
           logoHeight={48}
           gap={40}
           hoverSpeed={30}
