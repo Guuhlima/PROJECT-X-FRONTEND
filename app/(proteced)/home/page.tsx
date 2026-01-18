@@ -53,7 +53,7 @@ export default function Page() {
           hoverSpeed={30}
           scaleOnHover
           fadeOut
-          fadeOutColor="#ffffff"
+          fadeOutColor="#e5e5e5"
           ariaLabel="Technology partners"
         />
         <LogoLoop
@@ -66,7 +66,7 @@ export default function Page() {
           hoverSpeed={30}
           scaleOnHover
           fadeOut
-          fadeOutColor="#ffffff"
+          fadeOutColor="#e5e5e5"
           ariaLabel="Technology partners"
         />
       </div>
