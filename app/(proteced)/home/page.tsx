@@ -10,6 +10,7 @@ import {
   SiTypescript,
   SiTailwindcss,
 } from "react-icons/si";
+import TrackingChatWidget from "@/app/shared/components/TrackingChatWidget";
 
 const techLogos = [
   { node: <SiReact />, title: "React", href: "https://react.dev" },
@@ -41,6 +42,7 @@ export default function Page() {
         ease="power3.out"
       />
       <CardTrack />
+      <TrackingChatWidget />
       <div
         style={{ height: "200px", position: "relative", overflow: "hidden" }}
       >
