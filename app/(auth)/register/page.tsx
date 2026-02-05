@@ -111,11 +111,11 @@ export default function Page() {
         />
       )}
 
-      <div className="w-3/4 h-screen bg-gray-200 overflow-hidden">
+      <div className="w-3/4 h-screen bg-muted overflow-hidden">
         <FutureTrail />
       </div>
 
-      <div className="w-px bg-gray-300"></div>
+      <div className="w-px bg-border"></div>
 
       <div className="w-1/4 flex justify-center items-center">
         <div className="relative flex flex-col w-full max-w-sm gap-4">
@@ -144,12 +144,12 @@ export default function Page() {
             className="flex flex-col w-full max-w-sm gap-4"
             noValidate
           >
-            <span className="text-lg font-semibold text-center text-black">
+            <span className="text-lg font-semibold text-center text-foreground">
               Create Your Account
             </span>
 
             <div className="flex flex-col gap-2">
-              <label className="text-black">Username</label>
+              <label className="text-foreground">Username</label>
               <Input
                 id="name"
                 type="text"
@@ -168,7 +168,7 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-black">Email</label>
+              <label className="text-foreground">Email</label>
               <Input
                 id="email"
                 type="email"
@@ -187,7 +187,7 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-black">Password</label>
+              <label className="text-foreground">Password</label>
               <Input
                 id="password"
                 type="password"
@@ -218,18 +218,18 @@ export default function Page() {
             </Button>
 
             <div>
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-muted-foreground">
                 By continuing to use our service means that you have read and
                 agree to
-                <span className="text-blue-800 underline"> Terms </span>
-                and <span className="text-blue-800 underline"> Privacy </span>
+                <span className="text-primary underline"> Terms </span>
+                and <span className="text-primary underline"> Privacy </span>
               </span>
             </div>
 
             <div className="w-full flex items-center gap-3">
-              <div className="h-px flex-1 bg-gray-300" aria-hidden="true"></div>
-              <span className="text-sm text-gray-500">Log in with</span>
-              <div className="h-px flex-1 bg-gray-300" aria-hidden="true"></div>
+              <div className="h-px flex-1 bg-border" aria-hidden="true"></div>
+              <span className="text-sm text-muted-foreground">Log in with</span>
+              <div className="h-px flex-1 bg-border" aria-hidden="true"></div>
             </div>
 
             <div className="flex justify-center">
@@ -242,9 +242,9 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col items-center">
-              <span className="text-black">
+              <span className="text-foreground">
                 You have Account?{" "}
-                <Link href="/login" className="text-blue-500 hover:underline">
+                <Link href="/login" className="text-primary hover:underline">
                   Sing In
                 </Link>
               </span>

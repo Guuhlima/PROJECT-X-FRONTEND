@@ -58,7 +58,7 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-black/30 text-sm font-semibold text-white shadow-md transition hover:scale-[1.02]"
+        className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border/60 bg-card/70 text-sm font-semibold text-foreground shadow-md transition hover:scale-[1.02]"
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -71,10 +71,10 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
       {open && (
         <div
           role="menu"
-          className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg"
+          className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-border bg-card shadow-lg"
         >
-          <div className="px-4 py-3 text-xs uppercase tracking-wide text-black/60">{name}</div>
-          <div className="border-t border-black/10">
+          <div className="px-4 py-3 text-xs uppercase tracking-wide text-muted-foreground">{name}</div>
+          <div className="border-t border-border">
             {items.map((item) => {
               if (item.href) {
                 return (
@@ -82,7 +82,7 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
                     key={item.label}
                     role="menuitem"
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-black hover:bg-black/5"
+                    className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
                   >
                     {item.label}
                   </a>
@@ -94,7 +94,7 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
                   type="button"
                   role="menuitem"
                   onClick={item.onClick}
-                  className="w-full px-4 py-2 text-left text-sm text-black hover:bg-black/5"
+                  className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted"
                 >
                   {item.label}
                 </button>

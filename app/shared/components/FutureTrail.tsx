@@ -30,7 +30,7 @@ function Trail({
             w-full
             h-[80px]
             leading-[80px]
-            text-black
+            text-foreground
             text-[6em]
             font-extrabold
             tracking-[-0.05em]

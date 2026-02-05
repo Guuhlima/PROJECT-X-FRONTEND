@@ -43,8 +43,8 @@ export function CardTrack() {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.4, ease: 'easeOut' }}
                 >
-                    <div className="text-black font-bold text-2xl">{active.title}</div>
-                    <div className="text-black/80 mt-2">{active.description}</div>
+                    <div className="text-foreground font-bold text-2xl">{active.title}</div>
+                    <div className="text-muted-foreground mt-2">{active.description}</div>
                 </motion.div>
             </AnimatePresence>
         </div>
