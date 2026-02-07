@@ -7,17 +7,17 @@ type Props = {
 
 export default function PromptCards({ suggestions, onPick }: Props) {
     return (
-        <div className="flex w-full mb-6 gap-3 text-sm text-neutral-800">
+        <div className="flex w-full mb-6 gap-3 text-sm text-foreground">
             {suggestions.map((s, idx) => (
                 <button
                     key={`${idx}-${s.slice(0, 12)}`}
                     type="button"
                     onClick={() => onPick(s)}
-                    className="group relative grow text-left border border-[#ccc] shadow-sm hover:shadow-md hover:-translate-y-[1px] hover:bg-neutral-100/30 rounded-xl p-4 transition-all duration-300"
+                    className="group relative grow text-left border border-border bg-card/40 shadow-sm hover:shadow-md hover:-translate-y-[1px] hover:bg-accent/40 rounded-xl p-4 transition-all duration-300"
                 >
                     {s}
                     <svg
-                        className="absolute right-2 bottom-2 h-4 text-neutral-500 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                        className="absolute right-2 bottom-2 h-4 text-muted-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
                     >

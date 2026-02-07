@@ -23,7 +23,7 @@ const suggestions = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-linear-to-br text-slate-900">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="relative min-h-screen">
         <Profile name="Gustavo Lima" className="mt-3.5 h-12 w-12" />
         <CardNav

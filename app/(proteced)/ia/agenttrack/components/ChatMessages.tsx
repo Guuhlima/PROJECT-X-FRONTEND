@@ -26,7 +26,7 @@ export default function ChatMessages({ messages, className }: ChatMessagesProps)
 
     return (
         <div
-            className={`flex min-h-0 flex-1 flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-4 ${className ?? ''
+            className={`flex min-h-0 flex-1 flex-col gap-4 overflow-hidden rounded-2xl bg-card/60 p-4 backdrop-blur ${className ?? ''
                 }`}
         >
             <div
@@ -47,15 +47,15 @@ export default function ChatMessages({ messages, className }: ChatMessagesProps)
                             data-mid={message.id}
                         >
                             <div
-                                className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${isAssistant
-                                        ? 'border border-slate-200 bg-white text-slate-700 shadow-sm'
-                                        : 'bg-slate-900 text-white shadow-sm'
+                                className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${isAssistant
+                                        ? 'border border-border bg-card text-foreground'
+                                        : 'bg-primary text-primary-foreground'
                                     }`}
                             >
                                 {message.text}
                             </div>
 
-                            <span className="text-xs text-slate-400">{message.time}</span>
+                            <span className="text-xs text-muted-foreground">{message.time}</span>
                         </div>
                     );
                 })}

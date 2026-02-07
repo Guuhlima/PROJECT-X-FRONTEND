@@ -11,7 +11,7 @@ export default function ChatModal({ open, onClose, children }: ChatModalProps) {
 
   return (
     <div className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-900/30 px-4 py-8 backdrop-blur-sm">
-      <div className="h-[82vh] w-full max-w-3xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-2xl relative">
+      <div className="h-[82vh] w-full max-w-3xl overflow-hidden rounded-[32px] border border-red-400 bg-white shadow-2xl relative">
         <button
           type="button"
           onClick={onClose}

@@ -4,6 +4,7 @@ import ChatLandingShell from './ChatLandingShell';
 import PromptCards from './PromptCards';
 import ComposerBox from './ComposerBox';
 import type { Message } from './ChatMessages';
+import ChatMessages from './ChatMessages';
 import { useChatController } from '../../../../shared/hooks/useChatController';
 
 type Props = {
@@ -32,6 +33,9 @@ export default function ChatHome({
         }
     });
 
+    const hasNewMessages = chat.messages.length > initialMessages.length;
+    const isChatMode = chat.inputLen > 0 || hasNewMessages;
+
     return (
         <ChatLandingShell
             titleTop="Hello there,"
@@ -43,17 +47,42 @@ export default function ChatHome({
                 </>
             }
             className={className}
+            isChatMode={isChatMode}
         >
-            <PromptCards suggestions={chat.suggestions} onPick={chat.setSuggestion} />
+            <div
+                className={`transition-all duration-500 ease-out ${isChatMode
+                    ? 'opacity-0 blur-sm -translate-y-2 pointer-events-none'
+                    : 'opacity-100 blur-0 translate-y-0'
+                    }`}
+            >
+                <PromptCards suggestions={chat.suggestions} onPick={chat.setSuggestion} />
+            </div>
 
-            <ComposerBox
-                value={chat.input}
-                onChange={chat.setInput}
-                onSend={chat.send}
-                disabled={!chat.canSend}
-                countText={`${chat.inputLen}/${chat.maxChars}`}
-                placeholder="Digite sua pergunta aqui..."
-            />
+            {showMessages && (
+                <div
+                    className={`transition-all duration-500 ease-out ${isChatMode
+                        ? 'opacity-100 blur-0 translate-y-0 max-h-[calc(100vh-220px)] overflow-hidden'
+                        : 'opacity-0 blur-sm translate-y-2 pointer-events-none max-h-0 overflow-hidden'
+                        }`}
+                >
+                    <ChatMessages messages={chat.messages} />
+                </div>
+            )}
+
+            <div
+                className={`transition-all duration-500 ease-out ${isChatMode
+                    ? 'fixed left-1/2 bottom-6 z-[110] w-[90%] max-w-2xl -translate-x-1/2'
+                    : 'static w-auto'
+                    }`}
+            >
+                <ComposerBox
+                    value={chat.input}
+                    onChange={chat.setInput}
+                    onSend={chat.send}
+                    countText={`${chat.inputLen}/${chat.maxChars}`}
+                    placeholder="Digite sua pergunta aqui..."
+                />
+            </div>
         </ChatLandingShell>
     );
 }
