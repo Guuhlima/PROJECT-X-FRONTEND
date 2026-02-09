@@ -1,9 +1,15 @@
-import Button from "@/app/shared/components/Button"
+"use client"
+
+import Button from "@/app/shared/components/Button/Button"
 import Input from "@/app/shared/components/Input"
 import Link from "next/link"
 import FutureTrail from "../../shared/components/FutureTrail"
+import GoogleButton from "@/app/shared/components/Button/GoogleButton"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
+  const router = useRouter();
+
   return (
     <div className="flex min-h-screen">
 
@@ -43,7 +49,13 @@ export default function Page() {
           </div>
 
           <div className="flex justify-center text-foreground">
-            <img width="48" height="48" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo"/>
+            <GoogleButton 
+              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+              onCredential={(token) => {
+                console.log("ID Token", token)
+                router.push("/home");
+              }}
+            />
           </div>
 
           <div className="flex justify-center text-foreground">

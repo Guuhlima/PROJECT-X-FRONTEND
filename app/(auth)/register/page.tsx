@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/app/shared/components/Button";
+import Button from "@/app/shared/components/Button/Button";
 import Input from "@/app/shared/components/Input";
 import Link from "next/link";
 import FutureTrail from "../../shared/components/FutureTrail";

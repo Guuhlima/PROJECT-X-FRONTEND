@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ThemeMode from "./shared/components/ThemeMode";
-import CardNav from "@/app/shared/components/CardNav";
-import logo from "../public/Trackify_logo.png";
-import { items } from "@/app/shared/data/Items";
-import { Profile } from "./shared/components/Profile";
+import Script from "next/script"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,22 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script 
+        src="https://accounts.google.com/gsi/client"
+        async
+        defer
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeMode />
         {children}
-        <Profile name="Gustavo Lima" className="mt-3.5 w-12 h-12" />
-        <CardNav 
-          logo={logo}
-          logoAlt="Company Logo"
-          items={items}
-          baseColor="#fff"
-          menuColor="#000"
-          buttonBgColor="#111"
-          buttonTextColor="#fff"
-          ease="power3.out"
-        />
       </body>
     </html>
   );
