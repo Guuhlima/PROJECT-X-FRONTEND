@@ -28,8 +28,8 @@ function Trail({
           className="
             relative
             w-full
-            h-[80px]
-            leading-[80px]
+            h-20
+            leading-20
             text-foreground
             text-[6em]
             font-extrabold

@@ -143,9 +143,9 @@ export default function TrackingChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[120]">
+    <div className="fixed bottom-6 right-6 z-120">
       {open ? (
-        <div className="flex h-[540px] w-[360px] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl">
+        <div className="flex h-135 w-90 flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-5 py-4">
             <div>
               <p className="text-xs uppercase tracking-[0.32em] text-slate-400">
@@ -160,7 +160,7 @@ export default function TrackingChatWidget() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-900"
+              className="flex h-9 w-9 items-center cursor-pointer justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-900"
               aria-label="Fechar chat"
             >
               <X size={18} />
@@ -218,7 +218,7 @@ export default function TrackingChatWidget() {
               <button
                 type="button"
                 onClick={handleAttach}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-white"
+                className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-full text-slate-500 transition hover:bg-white"
                 aria-label="Adicionar anexo"
               >
                 <Paperclip size={18} />
@@ -238,7 +238,7 @@ export default function TrackingChatWidget() {
               <button
                 type="button"
                 onClick={handleSend}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-800"
+                className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-full bg-slate-900 text-white transition hover:bg-slate-800"
                 aria-label="Enviar mensagem"
               >
                 <Send size={16} />
@@ -253,7 +253,7 @@ export default function TrackingChatWidget() {
           type="button"
           onClick={() => setOpen(true)}
           aria-expanded={open}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-white shadow-xl transition hover:scale-[1.02]"
+          className="flex h-14 w-14  cursor-pointer items-center justify-center rounded-full bg-slate-900 text-white shadow-xl transition hover:scale-[1.02]"
         >
           <MessageCircle size={22} />
         </button>

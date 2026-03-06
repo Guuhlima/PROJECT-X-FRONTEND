@@ -1,4 +1,3 @@
-import { Profile } from "../../shared/components/Profile";
 import { CardTrack } from "./components/TextLoop";
 import TrackingChatWidget from "@/app/shared/components/TrackingChatWidget";
 

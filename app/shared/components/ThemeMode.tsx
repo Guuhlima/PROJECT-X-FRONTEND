@@ -37,7 +37,25 @@ export default function ThemeMode() {
       aria-label={`Switch to ${nextTheme} mode`}
       title={`Switch to ${nextTheme} mode`}
       onClick={() => setTheme(nextTheme)}
-      className="fixed left-5 top-5 z-[120] inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-md transition hover:scale-[1.03]"
+      className="
+        fixed 
+        left-5 
+        top-5 
+        z-120 
+        cursor-pointer
+        inline-flex 
+        h-11 
+        w-11 
+        items-center 
+        justify-center 
+        rounded-full 
+        border 
+        border-border 
+        bg-card 
+        text-foreground 
+        shadow-md 
+        transition 
+        hover:scale-[1.03]"
     >
       {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </button>

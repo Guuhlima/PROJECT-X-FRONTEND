@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import CardNav from "@/app/shared/components/CardNav";
+import CardNav from "@/app/shared/components/Card/CardNav";
 import logo from "@/public/Trackify_logo.png";
 import { items } from "@/app/shared/data/Items";
 import { Profile } from "../shared/components/Profile";

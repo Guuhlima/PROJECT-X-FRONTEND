@@ -36,10 +36,12 @@ export default function Page() {
             <Input type="password" placeholder="Password" />
           </div>
 
-          <Button className="w-full" type="button">
-            <Link href="/home">
-              Login
-            </Link>
+          <Button 
+            className="w-full" 
+            type="button" 
+            onClick={() => router.push("/home")}
+          >
+            Login
           </Button>
 
           <div className="w-full flex items-center gap-3">

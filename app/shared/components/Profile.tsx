@@ -17,7 +17,7 @@ export type ProfileProps = {
 
 const defaultItems: ProfileMenuItem[] = [
   { label: 'Settings', href: '/configuracoes' },
-  { label: 'Leave' },
+  { label: 'Leave', href: '/' },
 ];
 
 export function Profile({ name = 'Usuario', avatarUrl, className = '', items = defaultItems }: ProfileProps) {
@@ -52,13 +52,30 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
     .join('');
 
   return (
-    <div ref={containerRef} className={`fixed top-6 right-6 z-[120] ${className}`}>
+    <div ref={containerRef} className={`fixed top-6 right-6 z-120 ${className}`}>
       <button
         type="button"
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border/60 bg-card/70 text-sm font-semibold text-foreground shadow-md transition hover:scale-[1.02]"
+        className="
+          flex 
+          h-10 
+          w-10 
+          items-center 
+          justify-center 
+          overflow-hidden 
+          cursor-pointer
+          rounded-full 
+          border 
+          border-border/60 
+          bg-card/70 
+          text-sm 
+          font-semibold 
+          text-foreground 
+          shadow-md 
+          transition 
+          hover:scale-[1.02]"
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element

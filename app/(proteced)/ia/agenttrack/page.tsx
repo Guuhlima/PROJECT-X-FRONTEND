@@ -1,4 +1,4 @@
-import CardNav from "@/app/shared/components/CardNav";
+import CardNav from "@/app/shared/components/Card/CardNav";
 import { Profile } from "../../../shared/components/Profile";
 import logo from "../../../../public/Trackify_logo.png";
 import { items } from "@/app/shared/data/Items";

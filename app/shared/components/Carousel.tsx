@@ -28,31 +28,31 @@ const DEFAULT_ITEMS: CarouselItem[] = [
         title: 'Text Animations',
         description: 'Cool text animations for your projects.',
         id: 1,
-        icon: <FiFileText className="h-[16px] w-[16px] text-white" />
+        icon: <FiFileText className="h-4 w-4 text-white" />
     },
     {
         title: 'Animations',
         description: 'Smooth animations for your projects.',
         id: 2,
-        icon: <FiCircle className="h-[16px] w-[16px] text-white" />
+        icon: <FiCircle className="h-4 w-4 text-white" />
     },
     {
         title: 'Components',
         description: 'Reusable components for your projects.',
         id: 3,
-        icon: <FiLayers className="h-[16px] w-[16px] text-white" />
+        icon: <FiLayers className="h-4 w-4 text-white" />
     },
     {
         title: 'Backgrounds',
         description: 'Beautiful backgrounds and patterns for your projects.',
         id: 4,
-        icon: <FiLayout className="h-[16px] w-[16px] text-white" />
+        icon: <FiLayout className="h-4 w-4 text-white" />
     },
     {
         title: 'Common UI',
         description: 'Common UI components are coming soon!',
         id: 5,
-        icon: <FiCode className="h-[16px] w-[16px] text-white" />
+        icon: <FiCode className="h-4 w-4 text-white" />
     }
 ];
 
@@ -92,7 +92,7 @@ function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, trans
             transition={transition}
         >
             <div className={`${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
-                <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060010]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#060010]">
                     {item.icon}
                 </span>
             </div>

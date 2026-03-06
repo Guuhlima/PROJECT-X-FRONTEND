@@ -21,7 +21,7 @@ export default function Button({
   return (
     <button
       className={clsx(
-        "px-4 py-2 rounded-md font-medium transition-colors",
+        "px-4 py-2 rounded-md font-medium transition-colors cursor-pointer",
         variantClasses[variant],
         className
       )}
