@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 type ProfileMenuItem = {
+  className?: string;
   label: string;
   href?: string;
   onClick?: () => void;
@@ -17,7 +18,7 @@ export type ProfileProps = {
 
 const defaultItems: ProfileMenuItem[] = [
   { label: 'Settings', href: '/configuracoes' },
-  { label: 'Leave', href: '/' },
+  { label: 'Leave', className: 'text-red-500 hover:bg-red-100', href: '/' },
 ];
 
 export function Profile({ name = 'Usuario', avatarUrl, className = '', items = defaultItems }: ProfileProps) {
@@ -99,7 +100,7 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
                     key={item.label}
                     role="menuitem"
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-foreground hover:bg-muted"
+                    className={`block px-4 py-2 text-sm text-foreground hover:bg-muted ${item.className ?? ""}`}
                   >
                     {item.label}
                   </a>

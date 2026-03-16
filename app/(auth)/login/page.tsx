@@ -14,9 +14,9 @@ export default function Page() {
     <div className="flex min-h-screen">
 
       <div className="w-3/4 h-screen bg-muted overflow-hidden">
-         <FutureTrail />
+        <FutureTrail />
       </div>
-      
+
       <div className="w-px bg-border"></div>
 
       <div className="w-1/4 flex justify-center items-center">
@@ -36,9 +36,9 @@ export default function Page() {
             <Input type="password" placeholder="Password" />
           </div>
 
-          <Button 
-            className="w-full" 
-            type="button" 
+          <Button
+            className="w-full"
+            type="button"
             onClick={() => router.push("/home")}
           >
             Login
@@ -51,7 +51,7 @@ export default function Page() {
           </div>
 
           <div className="flex justify-center text-foreground">
-            <GoogleButton 
+            <GoogleButton
               clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
               onCredential={(token) => {
                 console.log("ID Token", token)
