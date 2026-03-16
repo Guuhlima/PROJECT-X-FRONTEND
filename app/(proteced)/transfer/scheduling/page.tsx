@@ -6,7 +6,8 @@ import {
     Eye
 } from "lucide-react";
 import Button from "@/app/shared/components/Button/Button";
-import Input from "@/app/shared/components/Input";
+import Input from "@/app/shared/components/Input/Input";
+import { InputSelect } from "@/app/shared/components/Input/InputSelect";
 import { ModalSchedullingDetail } from "@/app/shared/components/Modal/ModalSchedullingDetail";
 import { transferItems } from "./data";
 import { useState } from "react";
@@ -26,7 +27,7 @@ export default function Page() {
     }
 
     return (
-        <div className="min-h-screen bg-muted/30 pt-28">
+        <div className="min-h-screen bg-muted/30 pt-28 dark:bg-gradient-to-tr dark:from-background dark:to-muted">
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
                 <div className="space-y-6">
                     <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
@@ -66,11 +67,21 @@ export default function Page() {
                             <div className="mt-6 grid gap-4 md:grid-cols-2">
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium">Estoque de origem</label>
-                                    <Input value="CD Barueri" readOnly />
+                                    <InputSelect
+                                        value="CD Barueri"
+                                    >
+                                        <option value="CD Barueri">CD Barueri</option>
+                                        <option value="CD São Paulo">CD São Paulo</option>
+                                    </InputSelect>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium">Estoque de destino</label>
-                                    <Input value="Hub Campinas" readOnly />
+                                    <InputSelect
+                                        value="Hub Campinas"
+                                    >
+                                        <option value="Hub Campinas">Hub Campinas</option>
+                                        <option value="Hub Rio de Janeiro">Hub Rio de Janeiro</option>
+                                    </InputSelect>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium">Data</label>
@@ -79,6 +90,11 @@ export default function Page() {
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium">Quantidade total</label>
                                     <Input value="400 unidades" readOnly />
+                                </div>
+
+                                <div className="mt-6 flex flex-wrap gap-3">
+                                    <Button>Confirmar transferencia</Button>
+                                    <Button variant="secondary">Cancelar</Button>
                                 </div>
                             </div>
                         </section>
@@ -128,10 +144,6 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            <div className="mt-6 flex flex-wrap gap-3">
-                                <Button>Confirmar transferencia</Button>
-                                <Button variant="secondary">Cancelar</Button>
-                            </div>
                         </section>
                     </div>
                 </div>

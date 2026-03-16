@@ -1,9 +1,9 @@
 'use client'
 
-import { MapPin, Truck } from "lucide-react";
+import { MapPin, Truck, X } from "lucide-react";
 import Button from "../Button/Button";
 
-interface ModalSchedullingDetailProps {
+export interface ModalSchedullingDetailProps {
     open: boolean;
     onClose: () => void;
     origin: string;
@@ -44,11 +44,13 @@ export function ModalSchedullingDetail({ open, onClose, origin, destination, ite
 
                     <Button
                         type="button"
+                        variant="secondary"
+                        icon={<X className="h-4 w-4" />}
+                        iconOnly
+                        aria-label="Fechar detalhes da transferencia"
                         onClick={onClose}
-                        className="rounded-md border border-border px-3 py-2 text-sm"
-                    >
-                        Fechar
-                    </Button>
+                    />
+
                 </div>
 
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
