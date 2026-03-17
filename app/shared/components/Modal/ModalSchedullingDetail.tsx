@@ -3,7 +3,7 @@
 import { MapPin, Truck, X } from "lucide-react";
 import Button from "../Button/Button";
 
-export interface ModalSchedullingDetailProps {
+interface ModalSchedullingDetailProps {
     open: boolean;
     onClose: () => void;
     origin: string;

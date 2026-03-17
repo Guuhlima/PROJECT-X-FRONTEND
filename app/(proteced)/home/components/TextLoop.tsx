@@ -2,21 +2,7 @@
 
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-
-const TracksTexts = [
-    {
-        title: "Find Your Track",
-        description: "Discover the perfect path for your career growth and personal development.",
-    },
-    {
-        title: "Explore Opportunities",
-        description: "Unlock new possibilities and take the next step in your journey.",
-    },
-    {
-        title: "Join the Community",
-        description: "Connect with like-minded individuals and grow together.",
-    }
-]
+import { TracksTexts } from '../data';
 
 export function CardTrack() {
     const [activeIndex, setActiveIndex] = useState(0);

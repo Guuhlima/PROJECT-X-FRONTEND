@@ -2,7 +2,6 @@
 
 import {
     ArrowRightLeft,
-    CircleAlert,
     Eye
 } from "lucide-react";
 import Button from "@/app/shared/components/Button/Button";
@@ -27,7 +26,7 @@ export default function Page() {
     }
 
     return (
-        <div className="min-h-screen bg-muted/30 pt-28 dark:bg-gradient-to-tr dark:from-background dark:to-muted">
+        <div className="min-h-screen bg-muted/30 pt-28 dark:bg-linear-to-tr dark:from-background dark:to-muted">
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
                 <div className="space-y-6">
                     <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
@@ -58,16 +57,13 @@ export default function Page() {
                                         Origem e destino
                                     </h2>
                                 </div>
-                                <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
-                                    <CircleAlert className="h-3.5 w-3.5" />
-                                    Exemplo
-                                </div>
                             </div>
 
                             <div className="mt-6 grid gap-4 md:grid-cols-2">
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium">Estoque de origem</label>
                                     <InputSelect
+                                        onChange={(event) => console.log("Event acionado")}
                                         value="CD Barueri"
                                     >
                                         <option value="CD Barueri">CD Barueri</option>
@@ -77,6 +73,7 @@ export default function Page() {
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium">Estoque de destino</label>
                                     <InputSelect
+                                        onChange={(event) => console.log("Event acionado")}
                                         value="Hub Campinas"
                                     >
                                         <option value="Hub Campinas">Hub Campinas</option>

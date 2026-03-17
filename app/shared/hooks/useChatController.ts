@@ -16,7 +16,6 @@ type UseChatControllerArgs = {
   maxChars?: number;
   suggestions?: string[];
   onSend?: (text: string) => Promise<string | void> | (string | void); 
-  // onSend pode retornar uma resposta do "assistant" (string) ou void
 };
 
 function nowHHMM() {
@@ -87,7 +86,7 @@ export function useChatController({
     suggestions,
     setSuggestion,
     send,
-    pushMessage, // útil se quiser empurrar mensagens externamente
-    setMessages, // útil p/ reset
+    pushMessage,
+    setMessages,
   };
 }
