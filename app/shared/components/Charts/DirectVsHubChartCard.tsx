@@ -26,7 +26,7 @@ export default function DirectVsHubChartCard() {
             <span className="text-xl text-gray-500 dark:text-gray-400">Via hub</span>
           </div>
         </div>
-        <div className="h-[18rem]">
+        <div className="h-72">
           <BarChart data={directVsIndirectData} options={directVsIndirectOptions} />
         </div>
       </div>

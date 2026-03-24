@@ -23,7 +23,7 @@ export default function LeadTimeChartCard() {
             -1.84%
           </div>
         </div>
-        <div className="h-[18rem]">
+        <div className="h-72">
           <LineChart data={realtimeData} options={realtimeOptions} />
         </div>
       </div>
