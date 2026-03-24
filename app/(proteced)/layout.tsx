@@ -9,7 +9,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <ThemeMode />
-      <Profile name="Gustavo Lima" className="mt-3.5 h-12 w-12" />
+      <Profile name="Gustavo Lima" className="h-12 w-12" />
       <CardNav
         logo={logo}
         logoAlt="Company Logo"

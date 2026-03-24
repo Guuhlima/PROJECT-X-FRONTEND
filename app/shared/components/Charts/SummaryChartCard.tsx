@@ -14,16 +14,16 @@ export default function SummaryChartCard({
 }: SummaryCardData) {
   return (
     <article className="col-span-full rounded-xl border border-gray-200 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-900 sm:col-span-6 xl:col-span-4">
-      <div className="px-5 pt-5">
+      <div className="px-4 pt-4 sm:px-5 sm:pt-5">
         <header className="mb-2 flex items-start justify-between">
-          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{title}</h2>
+          <h2 className="pr-3 text-base font-semibold text-gray-800 dark:text-gray-100 sm:text-lg">{title}</h2>
           <CardMenu />
         </header>
         <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
           {label}
         </div>
-        <div className="flex items-start gap-2">
-          <div className="text-3xl font-bold text-gray-800 dark:text-gray-100">{value}</div>
+        <div className="flex flex-wrap items-start gap-2">
+          <div className="text-2xl font-bold text-gray-800 dark:text-gray-100 sm:text-3xl">{value}</div>
           <div
             className={`rounded-full px-2 py-0.5 text-sm font-medium ${
               deltaTone === "positive"

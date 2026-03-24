@@ -53,7 +53,7 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
     .join('');
 
   return (
-    <div ref={containerRef} className={`fixed top-6 right-6 z-120 ${className}`}>
+    <div ref={containerRef} className={`fixed right-4 top-20 z-120 sm:right-5 sm:top-22 md:right-6 md:top-6 ${className}`}>
       <button
         type="button"
         aria-haspopup="menu"
@@ -61,8 +61,8 @@ export function Profile({ name = 'Usuario', avatarUrl, className = '', items = d
         onClick={() => setOpen((prev) => !prev)}
         className="
           flex 
-          h-10 
-          w-10 
+          h-11 
+          w-11 
           items-center 
           justify-center 
           overflow-hidden 

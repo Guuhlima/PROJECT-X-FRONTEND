@@ -4,7 +4,7 @@ import Button from "@/app/shared/components/Button/Button";
 import Input from "@/app/shared/components/Input/Input";
 import Link from "next/link";
 import FutureTrail from "../../shared/components/FutureTrail";
-import { CreateUserSchema, FormData } from "./schema/User";
+import { CreateUserSchema, FormData } from "../../schemas/User";
 import { useRef, useState } from "react";
 import Toast from "@/app/shared/error/components/toast/Toast";
 import { api } from "@/lib/api";

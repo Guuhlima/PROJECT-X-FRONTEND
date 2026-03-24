@@ -39,8 +39,8 @@ export default function ThemeMode() {
       onClick={() => setTheme(nextTheme)}
       className="
         fixed 
-        left-5 
-        top-5 
+        left-4 
+        top-20 
         z-120 
         cursor-pointer
         inline-flex 
@@ -55,7 +55,11 @@ export default function ThemeMode() {
         text-foreground 
         shadow-md 
         transition 
-        hover:scale-[1.03]"
+        hover:scale-[1.03]
+        sm:left-5
+        sm:top-22
+        md:left-5
+        md:top-5"
     >
       {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </button>
