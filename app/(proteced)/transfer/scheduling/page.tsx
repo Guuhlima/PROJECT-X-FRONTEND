@@ -7,7 +7,7 @@ import {
 import Button from "@/app/shared/components/Button/Button";
 import Input from "@/app/shared/components/Input/Input";
 import { InputSelect } from "@/app/shared/components/Input/InputSelect";
-import { ModalSchedullingDetail } from "@/app/shared/components/Modal/ModalSchedullingDetail";
+import { ModalSchedullingDetail } from "./components/ModalSchedullingDetail";
 import { transferItems } from "./data";
 import { useState } from "react";
 

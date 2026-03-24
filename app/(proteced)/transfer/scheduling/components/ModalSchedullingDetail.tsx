@@ -1,7 +1,7 @@
 'use client'
 
 import { MapPin, Truck, X } from "lucide-react";
-import Button from "../Button/Button";
+import Button from "@/app/shared/components/Button/Button"; 
 
 interface ModalSchedullingDetailProps {
     open: boolean;
