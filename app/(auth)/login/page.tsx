@@ -11,7 +11,7 @@ export default function Page() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-muted/30 text-foreground dark:bg-linear-to-tr dark:from-background dark:to-muted">
       <div className="grid min-h-screen lg:grid-cols-[minmax(0,1.4fr)_minmax(360px,0.6fr)]">
         <div className="relative hidden overflow-hidden border-r border-border bg-muted/60 lg:flex">
           <div className="absolute inset-0 bg-linear-to-br from-background/10 via-transparent to-primary/10" />

@@ -50,6 +50,28 @@ export type PromotionWatchItem = {
   impact: string;
 };
 
+export type CommandCard = {
+  title: string;
+  value: string;
+  change: string;
+  badge: string;
+  tone: "primary" | "emerald" | "slate";
+};
+
+export type ActivityItem = {
+  title: string;
+  description: string;
+  badge: string;
+  tone: "primary" | "emerald" | "amber" | "rose";
+  time: string;
+};
+
+export type NetworkNode = {
+  name: string;
+  x: string;
+  y: string;
+};
+
 export const newsroomHighlights: NewsHighlight[] = [
   {
     title: "Movimentacoes hoje",
@@ -163,4 +185,65 @@ export const promotionWatch: PromotionWatchItem[] = [
     window: "Todos os dias, 20h as 23h",
     impact: "Tende a gerar picos curtos de separacao no periodo noturno",
   },
+];
+
+export const commandCards: CommandCard[] = [
+  {
+    title: "Estoque total monitorado",
+    value: "14,290",
+    change: "+12,4% desde a ultima semana",
+    badge: "Live",
+    tone: "primary",
+  },
+  {
+    title: "Transferencias em transito",
+    value: "842",
+    change: "94% dentro da janela planejada",
+    badge: "Active",
+    tone: "emerald",
+  },
+  {
+    title: "Performance da rede",
+    value: "98.2%",
+    change: "Acima da meta operacional trimestral",
+    badge: "Optimal",
+    tone: "slate",
+  },
+];
+
+export const recentActivity: ActivityItem[] = [
+  {
+    title: "Transferencia PX-4902",
+    description: "Saiu do CD Barueri com destino ao hub Campinas e 400 unidades confirmadas.",
+    badge: "Em transito",
+    tone: "primary",
+    time: "2 min",
+  },
+  {
+    title: "Reposicao de estoque",
+    description: "Zona A recebeu 500 unidades do SKU-8829 para cobertura critica.",
+    badge: "Confirmado",
+    tone: "emerald",
+    time: "1 h",
+  },
+  {
+    title: "Alerta climatico",
+    description: "Ha risco de atraso na rota Norte devido a frente chuvosa intensa.",
+    badge: "Warning",
+    tone: "amber",
+    time: "3 h",
+  },
+  {
+    title: "Motorista alocado",
+    description: "Marcus Chen assumiu a rota 7B para expedicao de alto giro.",
+    badge: "Scheduled",
+    tone: "rose",
+    time: "5 h",
+  },
+];
+
+export const networkNodes: NetworkNode[] = [
+  { name: "CD Barueri", x: "24%", y: "42%" },
+  { name: "Hub Campinas", x: "52%", y: "62%" },
+  { name: "CD Recife", x: "77%", y: "40%" },
 ];

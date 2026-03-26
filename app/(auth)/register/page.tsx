@@ -108,7 +108,7 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-muted/30 text-foreground dark:bg-linear-to-tr dark:from-background dark:to-muted">
       {globalError && (
         <Toast
           message={globalError}
