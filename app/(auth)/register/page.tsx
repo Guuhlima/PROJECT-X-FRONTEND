@@ -11,6 +11,13 @@ import { api } from "@/lib/api";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import InlineSwal from "@/app/shared/components/InlineSwal";
+import GoogleButton from "@/app/shared/components/Button/GoogleButton";
+
+type RegisterApiErrorResponse = {
+  message?: string;
+  error?: string;
+  errors?: Partial<Record<keyof FormData, string>>;
+};
 
 export default function Page() {
   const router = useRouter();
@@ -59,6 +66,7 @@ export default function Page() {
     } catch (err: unknown) {
       if (isAxiosError(err) && err.response) {
         const { status, data } = err.response;
+        const errorData = data as RegisterApiErrorResponse;
 
         if (status === 409) {
           setGlobalError("Este e-mail já está em uso.");
@@ -67,9 +75,7 @@ export default function Page() {
         }
 
         if (status === 400 || status === 422) {
-          const fieldErrors = (data as any)?.errors as
-            | { name?: string; email?: string; password?: string }
-            | undefined;
+          const fieldErrors = errorData.errors;
 
           if (fieldErrors) {
             setFieldErrors(prev => ({
@@ -81,16 +87,16 @@ export default function Page() {
           }
 
           const msg =
-            (data as any)?.message ||
-            (data as any)?.error ||
+            errorData.message ||
+            errorData.error ||
             "Falha de validação.";
           setGlobalError(msg);
           return;
         }
 
         const msg =
-          (data as any)?.message ||
-          (data as any)?.error ||
+          errorData.message ||
+          errorData.error ||
           `Falha ao criar usuário (HTTP ${status}).`;
         setGlobalError(msg);
       } else {
@@ -102,7 +108,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen bg-background text-foreground">
       {globalError && (
         <Toast
           message={globalError}
@@ -111,145 +117,155 @@ export default function Page() {
         />
       )}
 
-      <div className="w-3/4 h-screen bg-muted overflow-hidden">
-        <FutureTrail />
-      </div>
+      <div className="grid min-h-screen lg:grid-cols-[minmax(0,1.4fr)_minmax(360px,0.6fr)]">
+        <div className="relative hidden overflow-hidden border-r border-border bg-muted/60 lg:flex">
+          <div className="absolute inset-0 bg-linear-to-br from-background/10 via-transparent to-primary/10" />
+          <div className="relative flex w-full items-center justify-center px-10">
+            <FutureTrail />
+          </div>
+        </div>
 
-      <div className="w-px bg-border"></div>
+        <div className="flex items-center justify-center px-6 py-12 sm:px-10">
+          <div className="relative w-full max-w-md rounded-3xl border border-border bg-card/95 p-8 shadow-xl backdrop-blur">
+            <div
+              ref={swalTargetRef}
+              className="pointer-events-none absolute inset-0"
+            />
 
-      <div className="w-1/4 flex justify-center items-center">
-        <div className="relative flex flex-col w-full max-w-sm gap-4">
-          <div
-            ref={swalTargetRef}
-            className="absolute inset-0 pointer-events-none"
-          />
+            <InlineSwal
+              open={swalOpen}
+              target={swalTargetRef.current}
+              variant="success"
+              title="Account created"
+              message="Your account has been successfully created. Before proceeding to login, please confirm the information that was sent to your email."
+              timerMs={5000}
+              widthPx={360}
+              offsetTopPx={110}
+              onClose={() => {
+                setSwalOpen(false);
+                router.push("/login");
+              }}
+            />
 
-          <InlineSwal
-            open={swalOpen}
-            target={swalTargetRef.current}
-            variant="success"
-            title="Account created"
-            message="Your account has been successfully created. Before proceeding to login, please confirm the information that was sent to your email."
-            timerMs={5000}
-            widthPx={360}
-            offsetTopPx={110}
-            onClose={() => {
-              setSwalOpen(false);
-              router.push("/login");
-            }}
-          />
-
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col w-full max-w-sm gap-4"
-            noValidate
-          >
-            <span className="text-lg font-semibold text-center text-foreground">
-              Create Your Account
-            </span>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-foreground">Username</label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="Username"
-                value={form.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange("name", e.target.value)
-                }
-                disabled={loading}
-              />
-              {fieldErrors.name && (
-                <p className="text-xs font-medium text-red-600">
-                  {fieldErrors.name}
-                </p>
-              )}
+            <div className="mb-8 space-y-2 text-center">
+              <span className="text-sm font-medium uppercase tracking-[0.24em] text-muted-foreground">
+                Trakify
+              </span>
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+                Criar conta
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Configure seu acesso para gerenciar produtos, movimentacoes e operacoes.
+              </p>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-foreground">Email</label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange("email", e.target.value)
-                }
-                disabled={loading}
-              />
-              {fieldErrors.email && (
-                <p className="text-xs font-medium text-red-600">
-                  {fieldErrors.email}
-                </p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-foreground">Password</label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange("password", e.target.value)
-                }
-                disabled={loading}
-              />
-              {fieldErrors.password && (
-                <p className="text-xs font-medium text-red-600">
-                  {fieldErrors.password}
-                </p>
-              )}
-            </div>
-
-            <Button type="submit" disabled={loading}>
-              <span className="inline-flex items-center gap-2">
-                {loading && (
-                  <span
-                    className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-white"
-                    aria-hidden="true"
-                  />
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-5"
+              noValidate
+            >
+              <div className="flex flex-col gap-2">
+                <label htmlFor="name" className="text-sm font-medium text-foreground">Nome de usuario</label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Como deseja aparecer"
+                  value={form.name}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleChange("name", e.target.value)
+                  }
+                  disabled={loading}
+                />
+                {fieldErrors.name && (
+                  <p className="text-xs font-medium text-red-600 dark:text-red-400">
+                    {fieldErrors.name}
+                  </p>
                 )}
-                {loading ? "Creating..." : "Submit"}
-              </span>
-            </Button>
+              </div>
 
-            <div>
-              <span className="text-sm text-muted-foreground">
-                By continuing to use our service means that you have read and
-                agree to
-                <span className="text-primary underline"> Terms </span>
-                and <span className="text-primary underline"> Privacy </span>
-              </span>
-            </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-sm font-medium text-foreground">Email</label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={form.email}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleChange("email", e.target.value)
+                  }
+                  disabled={loading}
+                />
+                {fieldErrors.email && (
+                  <p className="text-xs font-medium text-red-600 dark:text-red-400">
+                    {fieldErrors.email}
+                  </p>
+                )}
+              </div>
 
-            <div className="w-full flex items-center gap-3">
-              <div className="h-px flex-1 bg-border" aria-hidden="true"></div>
-              <span className="text-sm text-muted-foreground">Log in with</span>
-              <div className="h-px flex-1 bg-border" aria-hidden="true"></div>
-            </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="password" className="text-sm font-medium text-foreground">Senha</label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Crie uma senha segura"
+                  value={form.password}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleChange("password", e.target.value)
+                  }
+                  disabled={loading}
+                />
+                {fieldErrors.password && (
+                  <p className="text-xs font-medium text-red-600 dark:text-red-400">
+                    {fieldErrors.password}
+                  </p>
+                )}
+              </div>
 
-            <div className="flex justify-center">
-              <img
-                width="48"
-                height="48"
-                src="https://img.icons8.com/fluency/48/google-logo.png"
-                alt="google-logo"
-              />
-            </div>
+              <Button type="submit" disabled={loading} className="w-full py-2.5">
+                <span className="inline-flex items-center gap-2">
+                  {loading && (
+                    <span
+                      className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-white"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {loading ? "Criando conta..." : "Criar conta"}
+                </span>
+              </Button>
 
-            <div className="flex flex-col items-center">
-              <span className="text-foreground">
-                You have Account?{" "}
-                <Link href="/login" className="text-primary hover:underline">
-                  Sing In
+              <p className="text-sm leading-6 text-muted-foreground">
+                Ao continuar, voce concorda com nossos{" "}
+                <span className="font-medium text-primary underline underline-offset-4">Termos</span>{" "}
+                e a{" "}
+                <span className="font-medium text-primary underline underline-offset-4">Politica de privacidade</span>.
+              </p>
+
+              <div className="flex items-center gap-3">
+                <div className="h-px flex-1 bg-border" aria-hidden="true"></div>
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                  Ou continue com
+                </span>
+                <div className="h-px flex-1 bg-border" aria-hidden="true"></div>
+              </div>
+
+              <div className="flex justify-center">
+                <GoogleButton
+                  clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+                  onCredential={(token) => {
+                    console.log("ID Token", token);
+                    router.push("/home");
+                  }}
+                />
+              </div>
+
+              <p className="text-center text-sm text-muted-foreground">
+                Ja possui conta?{" "}
+                <Link href="/login" className="font-medium text-primary transition hover:opacity-80">
+                  Entrar
                 </Link>
-              </span>
-            </div>
-          </form>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </div>

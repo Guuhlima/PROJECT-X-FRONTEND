@@ -3,12 +3,10 @@ import CardNav from "@/app/shared/components/Card/CardNav";
 import logo from "@/public/Trackify_logo.png";
 import { items } from "@/app/shared/data/Items";
 import { Profile } from "../shared/components/Profile";
-import ThemeMode from "../shared/components/ThemeMode";
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <ThemeMode />
       <Profile name="Gustavo Lima" className="h-12 w-12" />
       <CardNav
         logo={logo}

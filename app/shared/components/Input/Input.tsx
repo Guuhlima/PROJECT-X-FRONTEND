@@ -14,7 +14,7 @@ export default function Input({
     <input
       type={type}
       className={clsx(
-        "w-full rounded-md border border-gray-400 bg-background px-3 py-2 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/30",
+        "w-full rounded-xl border border-input bg-background/80 px-3 py-2.5 text-sm text-foreground shadow-xs outline-none transition placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-60",
         className
       )}
       {...props}
