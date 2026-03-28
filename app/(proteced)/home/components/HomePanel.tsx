@@ -14,7 +14,7 @@ import {
 import LineChart from "@/app/shared/components/Charts/LineChart";
 import { chartAreaGradient } from "@/app/shared/utils/ChartjsConfig";
 import { adjustColorOpacity, getCssVariable } from "@/app/shared/utils/Utils";
-import { commandCards, networkNodes, recentActivity } from "../data";
+import { commandCards, recentActivity } from "../data";
 import HomeNewsroom from "./HomeNewsroom";
 
 const cardToneClasses = {
@@ -189,16 +189,9 @@ export default function HomePanel() {
             </div>
 
             <div className="mt-6 rounded-[2rem] bg-muted/40 p-4 sm:p-6">
-              <div className="relative h-[310px] w-full overflow-hidden rounded-[1.75rem] bg-linear-to-b from-background/70 to-muted/20">
+              <div className="relative h-77.5 w-full overflow-hidden rounded-[1.75rem] bg-linear-to-b from-background/70 to-muted/20">
                 <div className="h-full w-full px-2 pt-4">
                   <LineChart data={efficiencyChart.data} options={efficiencyChart.options} />
-                </div>
-
-                <div className="absolute left-[57%] top-[20%] rounded-2xl border border-border bg-card/95 px-4 py-3 shadow-lg">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                    Pico de eficiência
-                  </div>
-                  <div className="mt-2 text-2xl font-semibold text-primary">1,240 pkgs/hr</div>
                 </div>
               </div>
             </div>
