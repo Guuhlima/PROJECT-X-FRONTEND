@@ -3,8 +3,11 @@ import CardNav from "@/app/shared/components/Card/CardNav";
 import logo from "@/public/Trackify_logo.png";
 import { items } from "@/app/shared/data/Items";
 import { Profile } from "../shared/components/Profile";
+import { cookies } from "next/headers";
 
-export default function ProtectedLayout({ children }: { children: ReactNode }) {
+export default async function ProtectedLayout({ children }: { children: ReactNode }) {
+  const token = (await cookies()).get("nextauth.token")?.value;
+
   return (
     <>
       <Profile name="Gustavo Lima" className="h-12 w-12" />

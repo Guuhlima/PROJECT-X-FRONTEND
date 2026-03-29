@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreateUserSchema = z.object({
+export const UserSchema = z.object({
   name: z
     .string()
     .min(3, "O nome deve ter ao menos 3 caracteres.")
@@ -15,4 +15,4 @@ export const CreateUserSchema = z.object({
     .regex(/[0-9]/, "A senha precisa de ao menos 1 número."),
 });
 
-export type FormData = z.infer<typeof CreateUserSchema>;
+export type FormData = z.infer<typeof UserSchema>;

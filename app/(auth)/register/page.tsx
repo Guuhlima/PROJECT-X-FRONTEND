@@ -4,7 +4,7 @@ import Button from "@/app/shared/components/Button/Button";
 import Input from "@/app/shared/components/Input/Input";
 import Link from "next/link";
 import FutureTrail from "../../shared/components/FutureTrail";
-import { CreateUserSchema, FormData } from "../../schemas/User";
+import { UserSchema, FormData } from "../../schemas/User/User";
 import { useRef, useState } from "react";
 import Toast from "@/app/shared/error/components/toast/Toast";
 import { api } from "@/lib/api";
@@ -47,7 +47,7 @@ export default function Page() {
     setGlobalError(null);
     setFieldErrors({ name: undefined, email: undefined, password: undefined });
 
-    const parsed = CreateUserSchema.safeParse(form);
+    const parsed = UserSchema.safeParse(form);
     if (!parsed.success) {
       const f = parsed.error.flatten().fieldErrors;
       setFieldErrors({

@@ -35,7 +35,13 @@ interface GoogleProps {
 
 export default function GoogleButton({ clientId, onCredential}: GoogleProps) {
     const divRef = useRef<HTMLDivElement>(null);
+    const onCredentialRef = useRef(onCredential);
     const [theme, setTheme] = useState<"light" | "dark">("light");
+    const [isGoogleReady, setIsGoogleReady] = useState(false);
+
+    useEffect(() => {
+        onCredentialRef.current = onCredential;
+    }, [onCredential]);
 
     useEffect(() => {
         const root = document.documentElement;
@@ -53,31 +59,45 @@ export default function GoogleButton({ clientId, onCredential}: GoogleProps) {
 
     useEffect(() => {
         let tries = 0;
+        let cancelled = false;
+
         const tick = () => {
             tries += 1
-            if (!window.google || !divRef.current) {
+            if (cancelled) return;
+            if (!window.google) {
                 if (tries < 20) setTimeout(tick, 150);
                 return;
             }
+
             window.google.accounts.id.initialize({
                 client_id: clientId,
                 callback: (response: { credential: string}) => {
-                    onCredential(response.credential);
+                    onCredentialRef.current(response.credential);
                 },
             });
-
-            window.google.accounts.id.renderButton(divRef.current, {
-                theme: theme === "dark" ? "filled_black" : "outline",
-                size: "large",
-                type: "standard",
-                text: "signin_with",
-                shape: "rectangular",
-                width: 280,
-            });
+            setIsGoogleReady(true);
         }
 
         tick();
-    }, [clientId, onCredential, theme])
+
+        return () => {
+            cancelled = true;
+        };
+    }, [clientId])
+
+    useEffect(() => {
+        if (!isGoogleReady || !window.google || !divRef.current) return;
+
+        divRef.current.innerHTML = "";
+        window.google.accounts.id.renderButton(divRef.current, {
+            theme: theme === "dark" ? "filled_black" : "outline",
+            size: "large",
+            type: "standard",
+            text: "signin_with",
+            shape: "rectangular",
+            width: 280,
+        });
+    }, [isGoogleReady, theme])
 
     return (
         <div ref={divRef} className="min-h-10" />
