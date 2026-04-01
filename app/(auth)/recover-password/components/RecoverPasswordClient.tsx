@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { isAxiosError } from "axios";
 import Button from "@/app/shared/components/Button/Button";
 import Input from "@/app/shared/components/Input/Input";
@@ -29,10 +29,41 @@ type RecoverPasswordClientProps = {
   token: string;
 };
 
+type ResetSessionStatus = "idle" | "loading" | "ready" | "error";
+
+function getSessionErrorMessage(errorCode?: string, fallback?: string) {
+  switch (errorCode) {
+    case "INVALID_TOKEN":
+      return "Este link de redefinicao e invalido.";
+    case "TOKEN_ALREADY_USED":
+      return "Este link ja foi utilizado.";
+    case "TOKEN_EXPIRED":
+      return "Este link expirou. Solicite um novo email de recuperacao.";
+    default:
+      return fallback || "Nao foi possivel validar o link de redefinicao.";
+  }
+}
+
+function getResetErrorMessage(errorCode?: string, fallback?: string) {
+  switch (errorCode) {
+    case "RESET_SESSION_REQUIRED":
+    case "RESET_SESSION_INVALID":
+      return "Sua sessao de redefinicao nao e mais valida. Abra o link do email novamente.";
+    case "RESET_SESSION_EXPIRED":
+      return "Sua sessao de redefinicao expirou. Abra o link do email novamente.";
+    case "USER_NOT_FOUND":
+      return "Nao foi possivel localizar o usuario da redefinicao.";
+    default:
+      return getSessionErrorMessage(errorCode, fallback || "Nao foi possivel redefinir a senha.");
+  }
+}
+
 export default function RecoverPasswordClient({
   token,
 }: RecoverPasswordClientProps) {
+  const pathname = usePathname();
   const router = useRouter();
+  const hasInitializedSession = useRef(false);
   const [form, setForm] = useState<ResetPasswordForm>({
     password: "",
     confirmPassword: "",
@@ -43,6 +74,41 @@ export default function RecoverPasswordClient({
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sessionStatus, setSessionStatus] = useState<ResetSessionStatus>(
+    token ? "idle" : "error"
+  );
+
+  useEffect(() => {
+    if (!token || hasInitializedSession.current) {
+      return;
+    }
+
+    hasInitializedSession.current = true;
+    setSessionStatus("loading");
+    setGlobalError(null);
+
+    api
+      .post<{ message?: string }>(
+        "/api/reset-password/session",
+        { token },
+        { withCredentials: true }
+      )
+      .then(() => {
+        setSessionStatus("ready");
+        if (typeof window !== "undefined" && token) {
+          window.history.replaceState(window.history.state, "", pathname || "/recover-password");
+        }
+      })
+      .catch((error) => {
+        if (isAxiosError(error) && error.response?.data) {
+          const data = error.response.data as ResetPasswordErrorResponse;
+          setGlobalError(getSessionErrorMessage(data.error, data.message));
+        } else {
+          setGlobalError("Erro de rede ou servidor indisponivel.");
+        }
+        setSessionStatus("error");
+      });
+  }, [pathname, token]);
 
   function handleChange<K extends keyof ResetPasswordForm>(
     key: K,
@@ -61,6 +127,11 @@ export default function RecoverPasswordClient({
 
     if (!token) {
       setGlobalError("O link de redefinicao esta incompleto ou invalido.");
+      return;
+    }
+
+    if (sessionStatus !== "ready") {
+      setGlobalError("Valide o link de redefinicao antes de continuar.");
       return;
     }
 
@@ -90,19 +161,29 @@ export default function RecoverPasswordClient({
     setIsSubmitting(true);
 
     try {
-      const { data } = await api.post<{ message?: string }>("/api/reset-password", {
-        token,
-        password: parsed.data.password,
-      });
+      const { data } = await api.post<{ message?: string }>(
+        "/api/reset-password",
+        {
+          password: parsed.data.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       setSuccessMessage(data.message || "Senha redefinida com sucesso.");
       setTimeout(() => router.push("/login"), 1800);
     } catch (error) {
       if (isAxiosError(error) && error.response?.data) {
         const data = error.response.data as ResetPasswordErrorResponse;
-        setGlobalError(
-          data.message || data.error || "Nao foi possivel redefinir a senha."
-        );
+        setGlobalError(getResetErrorMessage(data.error, data.message));
+        if (
+          data.error === "RESET_SESSION_REQUIRED" ||
+          data.error === "RESET_SESSION_INVALID" ||
+          data.error === "RESET_SESSION_EXPIRED"
+        ) {
+          setSessionStatus("error");
+        }
       } else {
         setGlobalError("Erro de rede ou servidor indisponivel.");
       }
@@ -155,6 +236,24 @@ export default function RecoverPasswordClient({
               <div className="flex flex-col gap-4">
                 <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
                   O token de redefinicao nao foi encontrado na URL.
+                </p>
+                <Link
+                  href="/forgot-password"
+                  className="inline-flex w-full items-center justify-center rounded-md bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  Solicitar novo link
+                </Link>
+              </div>
+            ) : sessionStatus === "loading" ? (
+              <div className="flex flex-col gap-4">
+                <p className="rounded-2xl border border-border bg-muted/60 px-4 py-3 text-sm leading-6 text-muted-foreground">
+                  Validando o link de redefinicao...
+                </p>
+              </div>
+            ) : sessionStatus === "error" ? (
+              <div className="flex flex-col gap-4">
+                <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-300">
+                  {globalError || "O link de redefinicao nao e valido."}
                 </p>
                 <Link
                   href="/forgot-password"
