@@ -153,7 +153,7 @@ export default function Page() {
                     Senha
                   </label>
                   <Link
-                    href="/recover-password"
+                    href="/forgot-password"
                     className="text-xs font-medium text-muted-foreground transition hover:text-foreground"
                   >
                     Esqueci minha senha
