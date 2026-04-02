@@ -1,10 +1,9 @@
 "use client";
 
 import { BarChart3, Newspaper } from "lucide-react";
-
 import type { HomeViewMode } from "../data";
 
-type HomeViewToggleProps = {
+interface HomeViewToggleProps {
   view: HomeViewMode;
   onChange: (view: HomeViewMode) => void;
 };
