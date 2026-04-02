@@ -1,9 +1,9 @@
 import RecoverPasswordClient from "./components/RecoverPasswordClient";
 
-type RecoverPasswordPageProps = {
-  searchParams?: Promise<{
+interface RecoverPasswordPageProps {
+  searchParams?: {
     token?: string | string[];
-  }>;
+  };
 };
 
 export default async function Page({
