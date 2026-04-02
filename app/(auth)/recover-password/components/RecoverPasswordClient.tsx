@@ -16,7 +16,7 @@ interface ResetPasswordErrorResponse {
   error?: string;
 }
 
-type ResetPasswordForm = {
+interface ResetPasswordForm {
   password: string;
   confirmPassword: string;
 };
@@ -25,7 +25,7 @@ const ResetPasswordSchema = UserSchema.pick({
   password: true,
 });
 
-type RecoverPasswordClientProps = {
+interface RecoverPasswordClientProps {
   token: string;
 };
 
