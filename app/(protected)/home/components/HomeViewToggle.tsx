@@ -23,7 +23,7 @@ const views = [
   },
 ];
 
-export default function HomeViewToggle({ view, onChange }: HomeViewToggleProps) {
+export function HomeViewToggle({ view, onChange }: HomeViewToggleProps) {
   return (
     <div className="col-span-full flex justify-stretch sm:justify-end">
       <div className="grid w-full grid-cols-1 rounded-2xl border border-border bg-card/90 p-1 shadow-sm backdrop-blur sm:inline-flex sm:w-auto sm:grid-cols-none">
